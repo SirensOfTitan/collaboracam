@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  div.container
+    div.row
+      div.offset4.span4
+        .well.well-large.well-white
+          form(action='/signup', method='POST', autocomplete='off').no-margin
+            fieldset
+              legend Sign Up for an Account
+              .control-group
+                label(for='username').control-label Username
+                .controls
+                  input(type='text', name='username', placeholder='Username').input-block-level#username
+              .control-group
+                label(for='email').control-label Email
+                .controls
+                  input(type='text', name='email', placeholder='Email Address').input-block-level#email
+              .control-group
+                label(for='password').control-label Password
+                .controls
+                  input(type='password', name='password', placeholder='Password').input-block-level#password
+
+              input(type='hidden', name='_csrf', value=csrf)
+              button(type='submit').btn.btn-large.btn-block.btn-primary Sign Up

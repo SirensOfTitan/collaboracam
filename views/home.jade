@@ -1,0 +1,108 @@
+extends layout
+
+block content
+  div.hero-background
+    div.container.offset
+      div.row
+        div.span9.center
+          .hero-unit.center
+            h1 Bringing organization and social back to meetings.
+        div.span3
+          div.well
+            ul.nav.nav-tabs
+              li.active
+                a(href='#register', data-toggle='tab') Sign Up
+              li
+                a(href='#signin', data-toggle='tab') Sign In
+            div.tab-content
+              div.tab-pane.fade.in.active#register
+                form(action='/signup', method='POST')
+                  div.control-group
+                    input(type='text', name='username', placeholder='User name')
+                    input(type='text', name='email', placeholder='Email address')
+                    input(type='hidden', name='_csrf', value=csrf)
+                    input(type='password', name='password', placeholder='Password')
+                  hr
+                  button(type='submit').btn.btn-success.btn-block.btn-large Sign Up
+              div.tab-pane.fade#signin
+                form(action='/login', method='POST')
+                  input(type='text', name='username', placeholder='Username or email')
+                  input(type='password', name='password', placeholder='Password')
+                  input(type='hidden', name='_csrf', value=csrf)
+                  hr
+                  button(type='submit').btn.btn-success.btn-block.btn-large Sign In
+  div.container
+    div.row
+      div.span3
+        h4 
+          | <i class="icon-group"></i>
+          |Real time collaboration
+        p.
+          Talk with others all over the world using
+          video, just audio, or neither.  It has 
+          never been easier.
+      div.span3
+        h4
+          | <i class="icon-exchange"></i>
+          |Portable, Cutting Edge Tech
+        p.
+          Powered by WebRTC and Node.js, 
+          Collaboracam is portable, fast,
+          and easy to use.
+
+      div.span3
+        h4
+          | <i class="icon-film"></i>
+          |Miss a meeting? No Problem
+        p.
+          Meetings are indexed, taggable,
+          and searchable, making it easier than
+          ever to find what you're looking for.
+      div.span3
+        h4
+          | <i class="icon-globe"></i>
+          |Find a Meeting
+        p.
+          Find and meet up with others who
+          are looking for your talent and
+          expertise.
+  hr.divider
+  div.container
+    div.row
+      div.span6.tags
+        h3 Popular Tags Around You
+        span.label.label-info WebRTC
+        span.label.label-info Node.js
+        span.label.label-info Bootstrap
+        span.label.label-info API Design
+        span.label.label-info Video
+        span.label.label-info Collaboration
+        span.label.label-info Express.js
+        span.label.label-info iOS
+        span.label.label-info Android
+        span.label.label-info Blackberry
+        span.label.label-info Marketing
+        span.label.label-info Graph Traversal
+        span.label.label-info Sorting
+        span.label.label-info UX Design
+        span.label.label-info Windows Phone 8
+
+
+      div.span6
+        h3 Featured Meeting
+        div.well.well-white
+          h4 Node.js Time Machine App
+          p.
+            Apparently the node.js event loop
+            has a bug that makes it travel in time.
+            So we're going to build a node.js powered time machine.
+            Take that Ruby!
+          .btn-group
+            a.btn.btn-primary.btn-large
+              strong When? 
+              | Tomorrow, 7 PM
+            a.btn.btn-primary.btn-large
+              strong Who? 
+              | Node.js Leaders
+
+

@@ -1,0 +1,48 @@
+extends layout
+
+block content
+
+  .container
+    form(method='post', action='/meetings/new').no-margin
+      .offset3.span6
+        .well.well-white
+          fieldset
+            legend Create a New Meeting
+            .control-group
+              label(for='title').control-label Title
+              .controls
+                input(type='text', name='title', placeholder='Use a descriptive title.', required).input-block-level#title
+            .row
+              .span3
+                .control-group
+                  label(for='where').control-label Where
+                  .controls
+                    input(type='text', name='where', placeholder='e.g. State College, PA', required).input-block-level
+              .span2
+                .control-group
+                  label(for='when').control-label When
+                  .controls
+                    input#date(type='text', name='when', placeholder='What date / time?', required).input-block-level
+            .control-group
+              label(for='description').control-label Description
+              .controls
+                textarea#description(name='description', required).input-block-level
+            .control-group
+              label(for='invited').control-label Invited People
+              .controls
+                ul#invited(style='overflow:hidden;margin:0 !important;')
+            .control-group
+              label.control-label Access
+              .controls
+                label.radio.input-block-level
+                  input(type='radio', name='access', value='Public', checked)
+                  i.icon-globe
+                  |  Anyone can see or join this meeting.
+                label.radio.input-block-level
+                  input(type='radio', name='access', value='Private', checked)
+                  i.icon-lock
+                  |  Only those who you invite can access this meeting.
+            .form-actions
+              input(type='hidden', name='_csrf', value=csrf)
+              button(type='submit').btn.btn-primary.btn-large.btn-block
+                |Let's Do It!

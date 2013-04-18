@@ -1,0 +1,86 @@
+extends layout
+
+block content
+  .page-header.top
+    .container
+      h2 
+        .pull-right
+          .btn-group
+            button(type='button').btn.btn-primary.btn-large
+              strong
+                | When 
+              | #{utils.prettyDate(meeting.when)}
+            button(type='button').btn.btn-primary.btn-large
+              strong
+                | Where 
+              | #{meeting.where}
+        |#{meeting.title} 
+        div.label(class=(meeting.access === 'Public' ? 'label-success' : 'label-important')) #{meeting.access}
+  #meta
+    #waveform
+    .tags
+      span.label.label-info.node 
+        .point
+        |Node.js @ 1:37
+      span.label.label-info.rtc
+        .point
+        |WebRTC @ 2:48
+      span.label.label-info.doc 
+        .point
+        |Documentation @ 8:45
+      span.label.label-info.market 
+        .point
+        |Marketing @ 10:20
+      span.label.label-info.css
+        .point
+        |CSS3 @ 11:40
+      span.label.label-info.coffee 
+        .point
+        |Elastic Search @ 13:10
+      span.label.label-info.punk
+        .point
+        |Daft Punk @ 14:45
+      span.label.label-info.express 
+        .point
+        |Express.js @ 15:20
+  hr.divider
+  .container
+    div.row
+      div.span9
+        div.well.well-white
+          div.page-header
+            h4 Tag Discussions
+          table.table-bordered.table
+            tbody
+              tr
+                th Node.js
+                td Node.js was discussed and its impact on rapid development and performance.
+              tr
+                th WebRTC
+                td WebRTC was determined to be a powerful new technology that is supported by a wide range of modern browsers.
+              tr
+                th Documentation
+                td We discussed documentation standards and agreed on conventions that will improve readability.
+              tr
+                th Marketing
+                td Marketing was determined not to be worthwhile to pursue at this time.
+              tr
+                th CSS3
+                td CSS3 techniques and responsive design were discussed as a powerful alternative to mobile applications.
+              tr
+                th Elastic Search
+                td Elastic Search was determined to be the most impactful tool for reliable, quick search.
+              tr
+                th Daft Punk
+                td After extensive deliberation, we determined Daft Punk to be the official programming music of Collaboracam.
+              tr
+                th Express.js
+                td Express was discussed and its impact on development (as a sinatra like framework) versus other more traditional MVC frameworks (like Railway.js)
+      div.span3
+        div.page-header.outside
+          h4 People Invited
+        ul.attendees
+          each user in meeting.invitees
+            li
+              a(href='/users/' + user.username)
+                img(src='http://www.gravatar.com/avatar/' + user._id + '?s=32&d=identicon&r=PG')

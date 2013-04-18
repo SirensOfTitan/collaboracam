@@ -1,0 +1,93 @@
+if pjax
+  if (messages_rendered)
+    div.container
+      div.row
+        div.span12
+          != rmessages()
+  block content
+else
+  doctype 5
+  html
+    head
+      meta(charset='utf8')
+      meta(name='robots', content='noodp')
+      meta(http-equiv='cleartype', content='on')
+      meta(name='viewport', content='width=device-width, initial-scale=1.0')
+      title Collaboracam
+      link(rel='stylesheet', href='/styles/bootstrap.css')
+      link(rel='stylesheet', href='/styles/responsive.css')
+      link(rel='stylesheet', href='//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css')
+      link(rel='stylesheet', href='/styles/vendor/jquery.tagit.css')
+    body(class=(bg ? 'alt' : ''))
+      #wrapper
+        header
+          .spacer
+          div.navbar.navbar-fixed-top
+            div.navbar-inner
+              div.container
+                div.pull-right
+                  button(type='button', data-toggle='collapse', data-target='.nav-collapse').btn.btn-navbar.pull-right
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.brand(href='/')
+                  |Collaboracam
+                if request.path !== '/search'
+                  form.navbar-form.pull-left(action='/search').hidden-phone.search
+                    div.input-append
+                      input(type='text', name='q', placeholder='Search for users and meetings.', value=request.query.q).input-large
+                      button(type='submit').add-on 
+                        i.icon-search
+                div.nav-collapse.collapse
+                  ul.nav.pull-right
+                    if user
+                      li
+                        a(href='/profiles/' + user.username)
+                          |@ #{user.username}
+                      li
+                        a(href='/settings')
+                          i.icon-cog
+                          |Settings
+                      li
+                        a(href='/logout', data-refresh)
+                          i.icon-signout
+                          |Logout
+
+                    else
+                      li
+                        a(href='/login') Sign In
+                      li
+                        a(href='/signup') Sign Up
+
+        #loading.hide
+          div
+            i.icon-spinner.icon-spin.icon-4x
+
+        div#main(role='main')
+          if (messages_rendered)
+            div.container
+              div.row
+                div.span12
+                  != rmessages()
+          block content
+        .clearfix
+        #push
+
+      div#footer
+        p.container
+          h4
+            i.icon-barcode
+
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
+    script.
+      window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.0.min.js"><\/script>')
+    script(src='/js/vendor/jquery.pjax.js')
+    script(src='//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js')
+    script(src='/js/vendor/jquery-ui-timepicker-addon.js')
+    script(src='/js/vendor/bootstrap/build/bootstrap.min.js')
+    script.
+      $.widget.bridge('uibutton', $.ui.button);
+      $.widget.bridge('uitooltip', $.ui.tooltip);
+    script(src='/js/vendor/tag-it.js')
+    script(src='/js/vendor/waveform.js')
+    script(src='/js/meeting.js');

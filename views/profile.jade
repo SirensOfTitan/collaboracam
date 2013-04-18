@@ -1,0 +1,71 @@
+extends layout
+
+block content
+  .container
+    .row
+      .span3
+        if canEdit
+          a(href='http://gravatar.com/emails/').avatar.thumbnail
+            img(src='https://secure.gravatar.com/avatar/' + profile.gravatar + '?s=270', data-placement='bottom', data-toggle='tooltip', title='Change your avatar at gravatar.com')
+        else 
+          a(href='https://secure.gravatar.com/avatar/' + profile.gravatar + '?s=400').thumbnail
+            img(src='https://secure.gravatar.com/avatar/' + profile.gravatar + '?s=270')
+        hr.divider
+        h2= profile.username
+        table.table.table-striped
+          tr
+            td
+              span.muted
+                i.icon-time 
+                | Joined on 
+              | #{profile.created.toLocaleDateString()}
+          if profile.twitter
+            tr
+              td
+                span.muted
+                  i.icon-twitter 
+                a(href='https://twitter.com/' + profile.twitter)
+                  |@#{profile.twitter}
+          if profile.website
+            tr
+              td
+                span.muted
+                  i.icon-globe 
+                a(href=profile.website)= profile.website
+          if profile.location
+            tr
+              td
+                span.muted
+                  i.icon-map-marker 
+                | #{profile.location}
+      .span9
+        .pull-right
+          if canEdit
+            a(href='/settings').btn
+              i.icon-cog 
+              |Edit your Profile
+        if profile.about
+          h3.
+            About Me
+          hr.divider
+          |#{profile.about}
+        if profile.skills
+          h3.
+            Skills
+          hr.divider
+          div.tags
+            each tag in profile.skills
+              span.label.label-info= tag
+        h3.
+          Recent Meetings
+        hr.divider
+        div.well.well-white
+          if profile.meetings
+            |poof
+          else
+            div.muted.center
+              i.icon-barcode.icon-4x 
+
+
+
+

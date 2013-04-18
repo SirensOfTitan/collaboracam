@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  .container
+    form(method='post', action='/settings').no-margin
+      .offset3.span6
+        .well.well-white
+          fieldset
+            legend Profile Settings
+            .control-group
+              label(for='about').control-label About Me
+              .controls
+                textarea#about(name='about').input-block-level
+                  |#{user.about}
+            .control-group
+              label(for='skills').control-label My Skills
+              .controls
+                ul#skills(style='overflow:hidden;margin:0 !important;')
+                  each tag in user.skills
+                    li= tag
+            hr
+            .control-group
+              label(for='website')
+                icon.icon-globe 
+                | Website Address
+              .controls
+                input(type='text', name='website', placeholder='Your website or personal address.', value=user.website).input-block-level
+            .control-group
+              label(for='twitter')
+                icon.icon-twitter 
+                | Twitter Handle
+              .controls
+                input(type='text', name='twitter', placeholder='Your twitter handle', value=user.twitter).input-block-level
+            .control-group
+              label(for='location')
+                i.icon-map-marker 
+                | Location
+              .controls
+                input(type='text', name='location', placeholder='Your location', value=user.location).input-block-level
+            .form-actions
+              input(type='hidden', name='_csrf', value=csrf)
+              button(type='submit').btn.btn-primary.btn-large.btn-block
+                |I Am Captain Planet

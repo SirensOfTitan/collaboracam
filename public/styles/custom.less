@@ -1,0 +1,237 @@
+.search button.add-on {
+  height: 100%;
+}
+
+.spacer {
+  padding-top: 60px;
+}
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; }
+.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
+
+#footer {
+  background: #fff;
+  width: 100%;
+  border-top: 1px solid darken(@grayLighter, 15%);
+  height: 100px;
+  line-height: 100px;
+  color: @grayLight;
+  h4 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    line-height: 80px;
+    padding: 0px;
+    color: #ccc;
+    text-shadow: 0 1px 0 rgba(0,0,0,.3);
+    margin: 0px;
+    font-size: 40px;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+#waveform {
+  height: 150px;
+  width: 100%;
+}
+
+.top {
+  background: url(../images/black_thread.png) repeat top left lighten(#000, 10%);
+  color: #fff;
+  margin-top: -15px;
+
+  h2 {
+    padding-top: 8px;
+  }
+}
+
+#wrapper {
+  min-height: 100%;
+  height: auto !important;
+  margin: 0 auto -100px;
+}
+
+html, body {
+  height: 100%;
+}
+
+#push {
+  height: 100px;
+  padding-top: 20px;
+}
+
+.hero-background {
+  background: url(../images/black_thread.png) repeat top left lighten(#000, 10%);
+  .border-radius(0px);
+  margin-top: -15px;
+  margin-bottom: 15px;
+  color: #fff;
+  min-height: 280px;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.75);
+  padding-top: 30px;
+
+  .well {
+    background: #fff;
+    color: @grayDark;
+    text-shadow: none;
+    border: 0px;
+    padding: 0px;
+
+
+
+    .nav > li {
+      width: 50%;
+      border: 0px;
+      font-size: 14px;
+      #gradient > .vertical(@navbarBackgroundHighlight, @navbarBackground);
+
+      a {
+        border: 0px;
+        background: transparent;
+        color: @gray;
+        font-weight: bold;
+      }
+    }
+
+    .nav > li.active {
+      a {
+        .box-shadow(inset 0 3px 8px rgba(0, 0, 0, 0.5));
+        .border-radius(0px);
+      }
+    }
+
+    .nav-tabs {
+      margin-bottom: 0px;
+    }
+
+    .tab-pane {
+      padding: 14px;
+      padding-bottom: 0px;
+
+      input[type="text"], input[type="password"] {
+        width: 94%;
+      }
+
+      .form-horizontal {
+        input[type="password"] {
+          width: 65%;
+        }
+
+        input[type="password"] + button {
+          margin-left: 3px;
+        }
+      }
+
+      hr {
+        margin-top: 7px;
+        margin-bottom: 7px;
+      }
+
+      a {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+body {
+  background: url(../images/struckaxiom.png) repeat top left #fff;
+}
+
+.well-white {
+  background: #fff;
+}
+
+hr.divider {
+  border: 0px;
+  border-top: 1px solid lighten(@grayLight, 22%);
+}
+
+.tags {
+  span.label + span.label {
+    margin-left: 3px;
+    margin-bottom: 3px;
+  }
+
+  span.label {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+#meta {
+
+  .tags span {
+    position: relative;
+
+    .point {
+      position: absolute;
+      left: 50%;
+      top: -20px;
+      width: 3px;
+      height: 20px;
+      background: #3a87ad;
+      z-index: 9999 !important;
+    }
+  }
+
+  .tags {
+    margin-top: 7px;
+    .node {
+      left: 75px;
+    }
+    .rtc { left: 140px; }
+    .express { right: 0px;}
+  }
+}
+
+.attendees {
+  li {
+    display: inline-block;
+    margin-right: 3px;
+    margin-bottom: 3px;
+  }
+}
+
+.outside {
+  border-color: lighten(@grayLight, 20%);
+}
+
+#description {
+  resize: vertical;
+  height: 200px;
+}
+
+#about {
+  resize: vertical;
+  height: 175px;
+}
+
+#loading {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  background: rgba(255,255,255,0.7);
+  div {
+    display: block;
+    position: absolute;
+    top: 28%;
+    left: 50%;
+    margin-left: -4em;
+  }
+}
