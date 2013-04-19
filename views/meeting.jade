@@ -6,10 +6,20 @@ block content
       h2 
         .pull-right
           .btn-group
-            button(type='button').btn.btn-primary.btn-large
-              strong
-                | When 
-              | #{utils.prettyDate(meeting.when)}
+            
+            button(type='button', class=((meeting.when.start < now && meeting.when.end > now) ? 'btn-danger': 'btn-primary')).btn.btn-large
+              if meeting.when.start < now && meeting.when.end > now
+                strong
+                  | Ending in 
+                | #{utils.prettyDate(meeting.when.end)}
+              else if meeting.when.start < now
+                strong 
+                  | Starting in 
+                | #{utils.prettyDate(meeting.when.start)}
+              else if meeting.when.end > now
+                strong
+                  | Ended on
+                | #{meeting.when.end.toLocaleString()}
             button(type='button').btn.btn-primary.btn-large
               strong
                 | Where 
@@ -82,5 +92,5 @@ block content
         ul.attendees
           each user in meeting.invitees
             li
-              a(href='/users/' + user.username)
-                img(src='http://www.gravatar.com/avatar/' + user._id + '?s=32&d=identicon&r=PG')
+              a(href='/profiles/' + user.username, data-toggle='tooltip', data-placement='top', title=user.username)
+                img(src='http://www.gravatar.com/avatar/' + user.gravatar + '?s=48&d=identicon&r=PG')

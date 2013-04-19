@@ -43,7 +43,9 @@ else
                     if user
                       li
                         a(href='/profiles/' + user.username)
-                          |@ #{user.username}
+                          img(src='http://www.gravatar.com/avatar/' + user.gravatar + '?s=22&d=identicon&r=PG').pull-left.avatar
+                          strong
+                            | #{user.username}
                       li
                         a(href='/settings')
                           i.icon-cog

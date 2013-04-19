@@ -34,10 +34,22 @@ var Meeting = new Schema({
     es_type: 'string'
   },
   when: {
-    type: Date,
-    required: true,
-    es_indexed: true,
-    es_type: 'date'
+    start: {
+      type: Date,
+      required: true,
+      es_indexed: true,
+      es_type: 'date'
+    },
+    end: {
+      type: Date,
+      required: true,
+      es_indexed: true,
+      es_type: 'date'
+    }
+  },
+  author: {
+    type: ObjectId,
+    ref: 'User'
   },
   access: {
     type: String,
@@ -60,9 +72,13 @@ Meeting.statics.createMeeting = function(meeting, callback) {
     title: meeting.title,
     description: meeting.description,
     where: meeting.where,
-    when: meeting.when,
+    when: {
+      start: meeting.when.start,
+      end: meeting.when.end
+    },
     access: meeting.access,
-    invitees: meeting.invitees
+    invitees: meeting.invitees,
+    author: meeting.author
   });
 
   _this.create(newMeeting, function(err, newMeeting) {

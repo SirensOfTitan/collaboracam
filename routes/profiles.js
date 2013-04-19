@@ -25,7 +25,17 @@ module.exports = function(app, args) {
           res.locals.canEdit = true;
         }
 
-        res.render('profile');
+        var Meeting = args.db.model('Meeting');
+        Meeting.find({
+          $or: [
+            { author: user._id },
+            { invited: user._id },
+          ]
+        }, function(err, meetings) {
+          if (err) { return next(err); }
+          res.locals.profile.meetings = meetings;
+          res.render('profile');
+        });
       }
     );
   });

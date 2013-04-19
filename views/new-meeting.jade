@@ -12,17 +12,18 @@ block content
               label(for='title').control-label Title
               .controls
                 input(type='text', name='title', placeholder='Use a descriptive title.', required).input-block-level#title
-            .row
-              .span3
-                .control-group
-                  label(for='where').control-label Where
-                  .controls
-                    input(type='text', name='where', placeholder='e.g. State College, PA', required).input-block-level
-              .span2
-                .control-group
-                  label(for='when').control-label When
-                  .controls
-                    input#date(type='text', name='when', placeholder='What date / time?', required).input-block-level
+            .control-group
+              label(for='where').control-label Where
+              .controls
+                input(type='text', name='where', placeholder='e.g. State College, PA', required).input-block-level
+            .control-group
+              label(for='start').control-label Start Time
+              .controls
+                input#start-date(type='text', name='start', placeholder='What date / time?', required).input-block-level
+            .control-group
+              label(for='end').control-label End Time
+              .controls
+                input#end-date(type='text', name='end', placeholder='What date / time?', required).input-block-level
             .control-group
               label(for='description').control-label Description
               .controls

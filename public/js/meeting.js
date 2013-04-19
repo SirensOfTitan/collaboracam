@@ -28,6 +28,7 @@ jQuery(function($) {
 
     processChildren: function() {
       var location = window.location.pathname;
+      $('[data-toggle=tooltip]').tooltip()
       console.log(location);
       if (/meetings\/new/.test(location)) {
         this.meetings.new.init();
@@ -77,7 +78,8 @@ jQuery(function($) {
 
     cacheElements: function() {
       this.$invitedField = $('#invited');
-      this.$dateField    = $('#date');
+      this.$startDateField    = $('#start-date');
+      this.$endDateField = $('#end-date');
     },
 
     setupElements: function() {
@@ -90,7 +92,8 @@ jQuery(function($) {
         beforeTagAdded: this.beforeTagAdded
       });
 
-      this.$dateField.datetimepicker();
+      this.$startDateField.datetimepicker();
+      this.$endDateField.datetimepicker();
     },
 
     beforeTagAdded: function(event, ui) {

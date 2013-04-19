@@ -4,15 +4,20 @@ module.exports = function(args) {
       title: req.body.title,
       description: req.body.description,
       where: req.body.where,
-      when: req.body.when,
+      when: {
+        start: req.body.start,
+        end: req.body.end
+      },
       access: req.body.access,
+      invited: [],
+      author: req.user._id
     };
+
+    console.log(meeting);
 
     if (req.body.invited && req.body.invited.length > 0) {
       meeting.invitees = req.body.invited;
     }
-
-    console.log(meeting);
 
     var Meeting = args.db.model('Meeting');
     Meeting.createMeeting(meeting, function(err, meetingResult) {

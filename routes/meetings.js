@@ -6,11 +6,13 @@ module.exports = function(app, args) {
 
   app.get('/meetings/:id', function(req, res, next) {
     var userId = (req.user ? req.user._id : false );
+    console.log(userId);
     var Meeting = args.db.model('Meeting');
     Meeting.findOne({
+      _id: req.params.id,
       $or: [
         { access: 'Public' },
-        { invitees: { $elemMatch: userId } }
+        { invitees: userId }
       ]
     }).populate('invitees').exec(function(err, meeting) {
       if (err) { return next(err); }
@@ -33,13 +35,23 @@ module.exports = function(app, args) {
         errors.push('A location is required.');
       }
 
-      if (!req.body.when) {
-        errors.push('A date and time is required.');
+      if (!req.body.start) {
+        errors.push('A start date and time is required.');
       } else {
-        req.body.when = new Date(req.body.when);
-        if (isNaN(req.body.when)) {
-          req.body.when = '';
-          errors.push('A valid date and time is required.');
+        req.body.start = new Date(req.body.start);
+        if (isNaN(req.body.start)) {
+          req.body.start = '';
+          errors.push('An end valid date and time is required.');
+        }
+      }
+
+      if (!req.body.end) {
+        errors.push('An end date and time is required.');
+      } else {
+        req.body.end = new Date(req.body.end);
+        if (isNaN(req.body.end)) {
+          req.body.end = '';
+          errors.push('An end valid date and time is required.');
         }
       }
 
