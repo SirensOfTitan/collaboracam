@@ -12,13 +12,13 @@ block content
                 strong
                   | Ending in 
                 | #{utils.prettyDate(meeting.when.end)}
-              else if meeting.when.start < now
+              else if meeting.when.start > now
                 strong 
                   | Starting in 
                 | #{utils.prettyDate(meeting.when.start)}
               else if meeting.when.end > now
                 strong
-                  | Ended on
+                  | Ended on 
                 | #{meeting.when.end.toLocaleString()}
             button(type='button').btn.btn-primary.btn-large
               strong
@@ -54,6 +54,16 @@ block content
         .point
         |Express.js @ 15:20
   hr.divider
+  if meeting.when.start < now && meeting.when.end > now
+    .container
+      div.row
+        div.span12
+          script(src='/js/webrtc.io.js');
+          script(src='/js/webrtc.js');
+          script(type='text/javascript') 
+            initRTC();  
+          #videos
+            video#you.flip(autoplay='autoplay', width='260', height='200', style='position: relative; left: 0px; bottom: 0px;')
   .container
     div.row
       div.span9

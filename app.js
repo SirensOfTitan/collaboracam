@@ -6,6 +6,7 @@ var path     = require('path');
 var async    = require('async')
 var passport = require('passport');
 var messages = require('express-messages-bootstrap').with({ should_render: true });
+var webRTC = require('webrtc.io');
 
 var app = args.app;
 
@@ -24,6 +25,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(messages);
 app.use(args.middleware.pjax.support);
+app.set('view options', { pretty: true });
+
 
 passport.serializeUser(function(user, done) {
   done(null, user._id);
@@ -68,7 +71,9 @@ require('./routes')(app, args);
 
 app.use(app.router);
 
-http.createServer(app).listen(app.get('port'), log);
+var server = http.createServer(app);
+webRTC.listen(server);
+server.listen(app.get('port'), log);
 
 function log() {
   console.log('collaboracam listening on port', app.get('port'));

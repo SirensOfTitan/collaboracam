@@ -17,6 +17,9 @@
     "mongoosastic": "*",
     "bcrypt": "*",
     "async": "*",
-    "validator": "*"
+    "validator": "*",
+    "webrtc.io": "*",
+    "webrtc.io-client": "*",
+    "ws": "*"
   }
 }
