@@ -1,4 +1,7 @@
 
+var io = require('socket.io');
+var passportSocketIo = require('passport.socketio');
+
 module.exports = function(app, args) {
   app.get('/meetings/new', function(req, res, next) {
     res.render('new-meeting');
@@ -99,4 +102,69 @@ module.exports = function(app, args) {
     },
     args.middleware.meetings.create
   );
+
+  // Live tagging
+  var socket = io.listen(args.config.socket);
+  socket.set('authorization', passportSocketIo.authorize({
+    key: args.config.session.key,
+    secret: args.config.session.secret,
+    store: args.config.session.store,
+    fail: function(data, accept) {
+      console.log('here');
+      accept(null, false);
+    },
+    success: function(data, accept) {
+      if (!data.query) { return accept(null, false); }
+      var meetingId = data.query.meeting;
+      var Meeting = args.db.model('Meeting');
+      Meeting.findOne({
+        _id: meetingId,
+        $or: [
+          { access: 'Public' },
+          { invitees: data.user._id }
+        ]
+      }).exec(function(err, meeting) {
+        if (err) { return accept(err); }
+        if (!meeting) { return accept(null, false); }
+        data.meeting = meeting;
+        return accept(null, true);
+      });
+    }
+  }));
+
+  socket.sockets.on('connection', function(socket) {
+    var Meeting = args.db.model('Meeting');
+    var meeting = socket.handshake.meeting;
+    var user    = socket.handshake.user;
+    socket.join(meeting._id);
+
+    socket.on('tag add', function(data) {
+      var title = data.title;
+      var description = data.description || '';
+      var time = data.time;
+
+      console.log(data);
+
+      if (!title || !time) {
+        return;
+      }
+
+      var newTag = {
+        title: title,
+        description: description,
+        time: time
+      };
+
+      Meeting.update(
+        { _id: meeting._id },
+        { $push: { tags: newTag }},
+        function(err, numRows) {
+          if (err){ return; }
+          if (numRows > 0) {
+            socket.emit('tag add', newTag);
+          }
+        }
+      );
+    });
+  })
 };

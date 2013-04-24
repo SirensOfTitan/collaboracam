@@ -4,6 +4,28 @@ var Schema        = mongoose.Schema;
 var ObjectId      = Schema.ObjectId;
 var sanitize      = require('validator').sanitize;
 
+var Tag = new Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+    es_indexed: true,
+    es_type: 'string'
+  },
+  description: {
+    type: String,
+    trim: true,
+    es_indexed: true,
+    es_type: 'string'
+  },
+  time: {
+    type: Date,
+    required: true,
+    es_indexed: true,
+    es_type: 'date'
+  }
+});
+
 var Meeting = new Schema({
   title: {
     type: String,
@@ -25,7 +47,7 @@ var Meeting = new Schema({
     type: ObjectId,
     ref: 'User'
   }],
-  tags: [String],
+  tags: [Tag],
   where: {
     type: String,
     required: true,

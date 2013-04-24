@@ -2,6 +2,15 @@
 jQuery(function($) {
   'use strict';
 
+  var Templates = {
+    tags: function(data) {
+      var template = $('<tr><th>' + data.title + '</th><td>' + (new Date(data.time)).toLocaleString() + '</td>' +
+        '<td>' + data.description + '</td>');
+
+      return template;
+    }
+  };
+
   var App = {
     init: function() {
       this.cacheElements();
@@ -132,17 +141,54 @@ jQuery(function($) {
 
   App.meetings.view = {
     init: function() {
+      this.meetingId = window.location.pathname.split("/").pop();
+      this.socket = io.connect('/?meeting=' + this.meetingId, {
+        port: 8080
+      });
       this.data = [];
+      this.tagTime = Date.now();
       this.cacheElements();
       this.setupElements();
     },
 
     cacheElements: function() {
       this.$waveform = $('#waveform');
+      this.$tagLink  = $('.tag-link');
+      this.$tagAdd   = $('.tag-add');
+      this.$tagModal = $('#tag-meeting');
+      this.$noTags   = $('.tag-list .empty');
+      this.$tagList  = $('.tag-list');
+    },
+
+    handleNewTag: function() {
+      App.meetings.view.tagTime = Date.now();
+    },
+
+    processTag: function() {
+      var tag = $('#tag');
+      var desc = $('#description');
+      App.meetings.view.socket.emit('tag add', {
+        title: tag.val(),
+        description: desc.val(),
+        time: App.meetings.view.tagTime
+      });
+      App.meetings.view.$tagModal.modal('hide');
+    },
+
+    tagServerAdd: function(data) {
+      console.log('well, were here');
+      var newTemplate = Templates.tags(data);
+      console.log(newTemplate);
+      console.log(App.meetings.view.$tagList);
+      App.meetings.view.$noTags.hide();
+      App.meetings.view.$tagList.append(newTemplate);
     },
 
     setupElements: function() {
-      if (this.$waveform) {
+      this.$tagLink.on('click', this.handleNewTag);
+      this.$tagAdd.on('click', this.processTag);
+      this.socket.on('tag add', this.tagServerAdd);
+      if (this.$waveform.length) {
         for (var i = 0; i < 500; i++) {
           this.data.push(Math.random());
         }

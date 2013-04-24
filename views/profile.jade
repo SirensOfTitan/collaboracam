@@ -67,7 +67,7 @@ block content
                   hr
                   h3.tags
                     span.label.pull-right(class=(meeting.access === 'Public' ? 'label-success' : 'label-important')) #{meeting.access}
-                    a(href='/meetings/' + meeting._id)
+                    a(href='/meetings/' + meeting._id, data-refresh)
                       | #{meeting.title} 
                   hr
                     

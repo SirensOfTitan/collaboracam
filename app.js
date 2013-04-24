@@ -66,14 +66,16 @@ app.configure('production', function() {
 app.use(express.csrf());
 app.use(args.middleware.csrf);
 
+// create server
+args.server = http.createServer(app);
+
 // routes
 require('./routes')(app, args);
 
 app.use(app.router);
 
-var server = http.createServer(app);
-webRTC.listen(server);
-server.listen(app.get('port'), log);
+webRTC.listen(args.server);
+args.server.listen(app.get('port'), log);
 
 function log() {
   console.log('collaboracam listening on port', app.get('port'));

@@ -13,5 +13,6 @@ module.exports = {
   },
   lessMiddleware: {
     src: path.join(__dirname, '..', 'public')
-  }
+  },
+  socket: 8080
 };

@@ -20,6 +20,8 @@
     "validator": "*",
     "webrtc.io": "*",
     "webrtc.io-client": "*",
-    "ws": "*"
+    "ws": "*",
+    "socket.io": "*",
+    "passport.socketio": "*"
   }
 }

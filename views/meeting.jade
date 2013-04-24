@@ -63,6 +63,7 @@ block content
         div.span12
           script(src='/js/webrtc.io.js');
           script(src='/js/webrtc.js');
+          script(src='/js/vendor/socket.io.js')
           script(type='text/javascript') 
             initRTC();  
           #videos
@@ -70,7 +71,7 @@ block content
     hr.divider
     .hidden-desktop
       .container
-        a(href='#').btn.btn-success.btn-large.btn-block Tag This
+        a(href='#tag-meeting', data-refresh, data-toggle='modal', role='button').btn.btn-success.btn-large.btn-block.tag-link Tag This
       hr.divider
 
   .container
@@ -81,34 +82,20 @@ block content
             h4.pull-left Tag Discussions
             if meeting.when.start < now && meeting.when.end > now
               span.pull-right.visible-desktop
-                a(href='#').btn.btn-success Tag This
+                a(href='#tag-meeting', data-refresh, data-toggle='modal', role='button').btn.btn-success.tag-link Tag This
             .clearfix
           table.table-bordered.table
-            tbody
-              tr
-                th Node.js
-                td Node.js was discussed and its impact on rapid development and performance.
-              tr
-                th WebRTC
-                td WebRTC was determined to be a powerful new technology that is supported by a wide range of modern browsers.
-              tr
-                th Documentation
-                td We discussed documentation standards and agreed on conventions that will improve readability.
-              tr
-                th Marketing
-                td Marketing was determined not to be worthwhile to pursue at this time.
-              tr
-                th CSS3
-                td CSS3 techniques and responsive design were discussed as a powerful alternative to mobile applications.
-              tr
-                th Elastic Search
-                td Elastic Search was determined to be the most impactful tool for reliable, quick search.
-              tr
-                th Daft Punk
-                td After extensive deliberation, we determined Daft Punk to be the official programming music of Collaboracam.
-              tr
-                th Express.js
-                td Express was discussed and its impact on development (as a sinatra like framework) versus other more traditional MVC frameworks (like Railway.js)
+            tbody.tag-list
+              if meeting.tags.length > 0
+                each tag in meeting.tags
+                  tr
+                    th #{tag.title}
+                    td #{tag.time.toLocaleString()}
+                    td #{tag.description}
+                  
+              else
+                tr.empty
+                  td There are no tags.
       div.span3
         div.page-header.outside
           h4 People Invited
@@ -123,7 +110,7 @@ block content
       button(type='button', data-dismiss='modal').close
         |&times;
       h3.
-        |Tag This Meeting
+        Tag This Meeting
     .modal-body
       .control-group
         label(for='tag') Tag Name
@@ -134,4 +121,7 @@ block content
         .controls
           textarea#description(name='description').input-block-level
     .modal-footer
-      a(href='#').btn Close
+      .btn-group.btn-block
+        a(href='#', data-refresh, data-dismiss='modal').btn.btn-danger.btn-large Cancel
+        a(href='#', data-refresh).btn.btn-primary.btn-large.tag-add Add Tag
+
