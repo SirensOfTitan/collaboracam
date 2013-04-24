@@ -20,7 +20,14 @@ jQuery(function($) {
     bindEvents: function() {
       this.$document.on('pjax:start', this.pjaxStart);
       this.$document.on('pjax:end', this.pjaxEnd);
+      // this.$window.resize(this.windowResize);
     },
+
+    // windowResize: function() {
+    //   if (App.meetings.view.waveform) {
+    //     App.meetings.view.updateWaveform();
+    //   }
+    // },
 
     setupElements: function() {
       this.$document.pjax('a:not([data-refresh])', this.$main);
@@ -125,6 +132,7 @@ jQuery(function($) {
 
   App.meetings.view = {
     init: function() {
+      this.data = [];
       this.cacheElements();
       this.setupElements();
     },
@@ -134,17 +142,26 @@ jQuery(function($) {
     },
 
     setupElements: function() {
-      var data = [];
-      for (var i = 0; i < 500; i++) {
-        data.push(Math.random());
-      }
+      if (this.$waveform) {
+        for (var i = 0; i < 500; i++) {
+          this.data.push(Math.random());
+        }
 
-      this.waveform = new Waveform({
-        container: this.$waveform[0],
-        data: data,
-        innerColor: '#333'
-      });
-    }
+        this.waveform = new Waveform({
+          container: this.$waveform[0],
+          data: this.data,
+          innerColor: '#333'
+        });
+      }
+    },
+
+    // updateWaveform: function() {
+    //   this.waveform.update({
+    //     container: this.$waveform[0],
+    //     data: this.data,
+    //     innerColor: '#333'
+    //   });
+    // }
   };
 
   App.init();

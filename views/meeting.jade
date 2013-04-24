@@ -3,8 +3,11 @@ extends layout
 block content
   .page-header.top
     .container
-      h2 
-        .pull-right
+      h2.info
+        .title.pull-left
+          |#{meeting.title} 
+          div.label(class=(meeting.access === 'Public' ? 'label-success' : 'label-important')) #{meeting.access}
+        .pull-right.times
           .btn-group
             
             button(type='button', class=((meeting.when.start < now && meeting.when.end > now) ? 'btn-danger': 'btn-primary')).btn.btn-large
@@ -24,36 +27,36 @@ block content
               strong
                 | Where 
               | #{meeting.where}
-        |#{meeting.title} 
-        div.label(class=(meeting.access === 'Public' ? 'label-success' : 'label-important')) #{meeting.access}
-  #meta
-    #waveform
-    .tags
-      span.label.label-info.node 
-        .point
-        |Node.js @ 1:37
-      span.label.label-info.rtc
-        .point
-        |WebRTC @ 2:48
-      span.label.label-info.doc 
-        .point
-        |Documentation @ 8:45
-      span.label.label-info.market 
-        .point
-        |Marketing @ 10:20
-      span.label.label-info.css
-        .point
-        |CSS3 @ 11:40
-      span.label.label-info.coffee 
-        .point
-        |Elastic Search @ 13:10
-      span.label.label-info.punk
-        .point
-        |Daft Punk @ 14:45
-      span.label.label-info.express 
-        .point
-        |Express.js @ 15:20
-  hr.divider
+        .clearfix
+  if meeting.when.end < now
+    #meta
+      #waveform
+      .tags
+        span.label.label-info.node 
+          .point
+          |Node.js @ 1:37
+        span.label.label-info.rtc
+          .point
+          |WebRTC @ 2:48
+        span.label.label-info.doc 
+          .point
+          |Documentation @ 8:45
+        span.label.label-info.market 
+          .point
+          |Marketing @ 10:20
+        span.label.label-info.css
+          .point
+          |CSS3 @ 11:40
+        span.label.label-info.coffee 
+          .point
+          |Elastic Search @ 13:10
+        span.label.label-info.punk
+          .point
+          |Daft Punk @ 14:45
+        span.label.label-info.express 
+          .point
+          |Express.js @ 15:20
+    hr.divider
   if meeting.when.start < now && meeting.when.end > now
     .container
       div.row
@@ -64,12 +67,22 @@ block content
             initRTC();  
           #videos
             video#you.flip(autoplay='autoplay', width='260', height='200', style='position: relative; left: 0px; bottom: 0px;')
+    hr.divider
+    .hidden-desktop
+      .container
+        a(href='#').btn.btn-success.btn-large.btn-block Tag This
+      hr.divider
+
   .container
     div.row
       div.span9
         div.well.well-white
           div.page-header
-            h4 Tag Discussions
+            h4.pull-left Tag Discussions
+            if meeting.when.start < now && meeting.when.end > now
+              span.pull-right.visible-desktop
+                a(href='#').btn.btn-success Tag This
+            .clearfix
           table.table-bordered.table
             tbody
               tr
@@ -104,3 +117,21 @@ block content
             li
               a(href='/profiles/' + user.username, data-toggle='tooltip', data-placement='top', title=user.username)
                 img(src='http://www.gravatar.com/avatar/' + user.gravatar + '?s=48&d=identicon&r=PG')
+
+  .modal.hide.fade#tag-meeting
+    .modal-header
+      button(type='button', data-dismiss='modal').close
+        |&times;
+      h3.
+        |Tag This Meeting
+    .modal-body
+      .control-group
+        label(for='tag') Tag Name
+        .controls
+          input(type='text', name='tag', placeholder='e.g. Daft Punk')#tag.input-block-level
+      .control-group
+        label(for='description') Description (Optional)
+        .controls
+          textarea#description(name='description').input-block-level
+    .modal-footer
+      a(href='#').btn Close
