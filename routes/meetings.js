@@ -104,8 +104,8 @@ module.exports = function(app, args) {
   );
 
   // Live tagging
-  var socket = io.listen(args.config.socket);
-  socket.set('authorization', passportSocketIo.authorize({
+  var sio = io.listen(args.config.socket);
+  sio.set('authorization', passportSocketIo.authorize({
     key: args.config.session.key,
     secret: args.config.session.secret,
     store: args.config.session.store,
@@ -132,7 +132,7 @@ module.exports = function(app, args) {
     }
   }));
 
-  socket.sockets.on('connection', function(socket) {
+  sio.sockets.on('connection', function(socket) {
     var Meeting = args.db.model('Meeting');
     var meeting = socket.handshake.meeting;
     var user    = socket.handshake.user;
@@ -161,7 +161,7 @@ module.exports = function(app, args) {
         function(err, numRows) {
           if (err){ return; }
           if (numRows > 0) {
-            socket.emit('tag add', newTag);
+            sio.sockets.in(meeting._id).emit('tag change', newTag);
           }
         }
       );

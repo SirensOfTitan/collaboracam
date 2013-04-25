@@ -176,7 +176,7 @@ jQuery(function($) {
     },
 
     tagServerAdd: function(data) {
-      console.log('well, were here');
+      console.log(data);
       var newTemplate = Templates.tags(data);
       console.log(newTemplate);
       console.log(App.meetings.view.$tagList);
@@ -187,7 +187,7 @@ jQuery(function($) {
     setupElements: function() {
       this.$tagLink.on('click', this.handleNewTag);
       this.$tagAdd.on('click', this.processTag);
-      this.socket.on('tag add', this.tagServerAdd);
+      this.socket.on('tag change', this.tagServerAdd);
       if (this.$waveform.length) {
         for (var i = 0; i < 500; i++) {
           this.data.push(Math.random());
