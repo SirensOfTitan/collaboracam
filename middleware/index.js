@@ -6,6 +6,7 @@ module.exports = function(args) {
   middleware.login = require('./login')(args);
   middleware.home = require('./home')(args);
   middleware.meetings = require('./meetings')(args);
+  middleware.dashboard = require('./dashboard')(args);
 
   return middleware;
 }

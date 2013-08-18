@@ -1,0 +1,56 @@
+extends layout
+
+block content
+  div.container
+      div.row
+        div.span3.well.well-white
+          h4
+          | Recent Meetings
+          if recent
+           each meeting in recent
+            div.row
+              div.span3
+                hr
+                h3.tags
+                  span.label.pull-right(class=(meeting.access === 'Public' ? 'label-success' : 'label-important')) #{meeting.access}
+                  a(href='/meetings/' + meeting._id, data-refresh)
+                    | #{meeting.title} 
+                hr
+          else
+            div.span3 No recent meetings
+        div.span3.well.well-white
+          h4
+          | Upcoming Meetings
+          if upcoming
+           each meeting in upcoming
+            div.row
+              div.span3
+                hr
+                h3.tags
+                  span.label.pull-right(class=(meeting.access === 'Public' ? 'label-success' : 'label-important')) #{meeting.access}
+                  a(href='/meetings/' + meeting._id, data-refresh)
+                    | #{meeting.title} 
+                hr
+          else
+            div.span3 No upcoming meetings
+        div.span3.well.well-white
+          h4
+          | Meetings Around You
+          if around
+           each meeting in around
+            div.row
+              div.span3
+                hr
+                h3.tags
+                  span.label.pull-right(class=(meeting.access === 'Public' ? 'label-success' : 'label-important')) #{meeting.access}
+                  a(href='/meetings/' + meeting._id, data-refresh)
+                    | #{meeting.title} 
+                hr
+          else
+            div.span3 No upcoming meetings around you
+
+      div.row
+        div.span12.center
+          a.btn.btn-primary.btn-large(href='/meetings/new')
+            i.icon-comment
+            | New Meeting
