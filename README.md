@@ -1,17 +1,12 @@
 # Collaboracam
 
-Collaboracam is 
+Collaboracam is an open-source meeting plaform built on WebRTC. It was created as a Spring 2013 Senior Design Project at Penn State.
 
 ## Quick Start
  
-  Install dependencies:
-    
-    $ npm install
-
   mongod, redis-server, and elasticsearch should be running
 
-    $ NODE_ENV=[development|production] app.js
+    $ NODE_ENV=production forever start app.js
 
-## Features
 
 
